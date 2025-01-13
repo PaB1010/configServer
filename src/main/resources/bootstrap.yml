@@ -12,10 +12,10 @@ spring:
   cloud:
     config:
       server:
-        native: # 설정 서버에 있는 특정 경로로 설정 파일을 넣어줌
+        native: # Config Server 에 있는 특정 경로에 설정 파일로서 설정 파일 관리
           search-locations: classpath:/configs # resource.configs package
-        git: # 원격 레포지토리에서 설정 파일 조회
+        git: # 원격 레포지토리에서 설정 파일 조회, 유연하게 환경 변수로 관리
           # uri - 자동적으로 원격 레포지토리 주소에 있는 application 이름 확인 후 설정 파일 가져옴
-          uri: https://github.com/PaB1010/projectConfigs.git
-          searchPaths: configs # 추후 uri 레포지토리에 configs 폴더 추가 예정
-          default-label: main
+          uri: ${repo.uri}
+          searchPaths: ${repo.path} # 추후 uri 레포지토리에 configs 폴더 추가 예정
+          default-label: ${repo.branch}
